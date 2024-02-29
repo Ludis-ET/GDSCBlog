@@ -3,19 +3,26 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'GDSCBlog.settings')
 import django
 django.setup()
 
-from BlogApp.models import Post
+from BlogApp.models import Post, Tag
 from CommentApp.models import Comment
 
+tag1 = Tag.objects.create(name="django")
+tag2 = Tag.objects.create(name="blog")
+tag3 = Tag.objects.create(name="aastu")
 
-one = Post.objects.create(title="Ludis", content="creating contoent for ludis", category="Tech", tags=["tag1", "tag2"])
-two = Post.objects.create(title="leul", content="Content for the second post", category="Science", tags=["tag3", "tag4"])
-three = Post.objects.create(title="leulseged", content="Content for the third post", category="Travel", tags=["tag5", "tag6"])
+one = Post.objects.create(title="Ludis", content="Creating content for Ludis", category="Tech")
+two = Post.objects.create(title="Leul", content="Content for the second post", category="Science")
+three = Post.objects.create(title="Leulseged", content="Content for the third post", category="Travel")
 
+one.tags.set([tag1, tag2])
+two.tags.set([tag3, tag2])
+three.tags.set([tag1, tag3])
 
 tech_posts = Post.objects.filter(category="Tech")
 print("Posts in Tech category:", tech_posts)
 
-one.content = "this is the updated content for ludis"
+
+one.content = "This is the updated content for Ludis"
 one.save()
 
 three.delete()
